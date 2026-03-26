@@ -1,0 +1,120 @@
+## MSAM Performance Optimization Modules
+
+### Overview
+Add performance optimization modules to MSAM (Multi-Stream Adaptive Memory) system.
+
+### Modules Added
+
+1. **redis_cache.py** - Redis-based query caching
+   - Query result caching with configurable TTL
+   - Cache hit/miss tracking
+   - Statistics monitoring
+
+2. **local_embeddings.py** - Local embedding generation
+   - Supports sentence-transformers/all-MiniLM-L6-v2
+   - Optional ONNX runtime acceleration
+   - Fallback to API-based embeddings
+
+3. **async_retrieval.py** - Asynchronous retrieval
+   - Non-blocking I/O operations
+   - Thread pool management (50 concurrent queries)
+   - Performance metrics collection
+
+4. **batch_embeddings.py** - Batch embedding optimization
+   - Automatic batching of embedding requests
+   - Configurable batch size (default: 50)
+   - API call reduction through batching
+
+5. **security.py** - Basic authentication and rate limiting
+   - JWT token generation and validation
+   - User permission management
+   - IP-based rate limiting
+   - 20-byte encryption keys
+
+6. **enterprise_security.py** - Enhanced security features
+   - JWT with automatic key rotation (24h)
+   - Token refresh mechanism (7-day expiry)
+   - OAuth2 support (Google, Azure, Okta)
+   - SSO support (SAML 2.0, OIDC)
+   - Audit logging with encryption
+   - 365-day audit retention
+   - SOC2 compliance features
+   - Role-based access control
+
+7. **multi_strategy_embeddings.py** - Multi-backend embedding support
+   - Supports multiple embedding backends
+   - Auto-selection based on query type
+   - Performance tracking per strategy
+
+8. **metrics_exporter.py** - Prometheus metrics export
+   - Real-time performance monitoring
+   - Query latency metrics
+   - Cache hit ratio tracking
+   - API efficiency metrics
+   - Cost tracking
+   - Exports to port 9090
+
+9. **optimization_suite.py** - Unified optimization manager
+   - Integrates all optimization modules
+   - Centralized configuration
+   - Orchestration of optimizations
+
+### Configuration
+
+**JWT Settings:**
+- Token expiry: 60 minutes
+- Key rotation: 24 hours
+- Refresh tokens: 7-day expiry
+
+**Embedding Configuration:**
+- Primary model: all-MiniLM-L6-v2
+- Supports ONNX runtime for acceleration
+- Fallback to API-based embeddings
+
+**Security Features:**
+- SOC2 compliance enabled
+- GDPR compliance option
+- HIPAA compliance option
+- Event encryption
+- Audit logging with encryption
+
+### Installation
+
+pip install redis pyjwt sentence-transformers
+Optional for accelerated embeddings:
+pip install onnxruntime
+
+### Usage
+
+from optimization_suite import MSAMOptimizationSuite
+
+suite = MSAMOptimizationSuite()
+result = await suite.optimized_query("Your query here")
+
+### Metrics
+
+Metrics available at http://localhost:9090/metrics:
+- msam_query_latency_seconds - Query latency histogram
+- msam_cache_hits_total - Cache hit count
+- msam_cache_misses_total - Cache miss count
+- msam_api_calls_total - API call count
+- msam_local_embeddings_enabled_total - Local embedding status
+
+### Testing
+
+All modules have been validated:
+- Module import: All 9 modules load successfully
+- Authentication: JWT generation/validation working
+- Rate limiting: IP-based limiting functional
+- Async retrieval: 50 concurrent queries supported
+- Batch optimization: Batching working
+
+### Files
+
+- 9 optimization Python modules
+- Complete README with deployment instructions
+- Cross-platform compatibility documentation
+
+---
+
+All optimizations are production-ready and tested.
