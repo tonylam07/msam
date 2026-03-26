@@ -1,0 +1,156 @@
+{
+  "dashboard": {
+    "title": "MSAM Optimization Dashboard",
+    "panels": [
+      {
+        "title": "Query Latency (ms)",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "msam_query_latency_seconds_p50 * 1000",
+            "legendFormat": "P50",
+            "refId": "A"
+          },
+          {
+            "expr": "msam_query_latency_seconds_p95 * 1000",
+            "legendFormat": "P95",
+            "refId": "B"
+          },
+          {
+            "expr": "msam_query_latency_seconds_p99 * 1000",
+            "legendFormat": "P99",
+            "refId": "C"
+          },
+          {
+            "expr": "msam_query_latency_seconds_avg * 1000",
+            "legendFormat": "Average",
+            "refId": "D"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 0, "w": 24, "h": 8}
+      },
+      {
+        "title": "Cache Performance",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "msam_cache_hit_ratio * 100",
+            "legendFormat": "Hit Ratio %",
+            "refId": "A"
+          },
+          {
+            "expr": "msam_cache_hits_total",
+            "legendFormat": "Total Hits",
+            "refId": "B"
+          },
+          {
+            "expr": "msam_cache_misses_total",
+            "legendFormat": "Total Misses",
+            "refId": "C"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 8, "w": 12, "h": 6}
+      },
+      {
+        "title": "Query Success Rate",
+        "type": "gauge",
+        "targets": [
+          {
+            "expr": "(msam_queries_success_total / (msam_queries_success_total + msam_queries_error_total)) * 100",
+            "legendFormat": "Success Rate",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 8, "w": 12, "h": 6}
+      },
+      {
+        "title": "API Efficiency",
+        "type": "bar gauge",
+        "targets": [
+          {
+            "expr": "msam_batch_api_calls_saved_total / msam_api_calls_total * 100",
+            "legendFormat": "API Calls Saved %",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 14, "w": 12, "h": 6}
+      },
+      {
+        "title": "Security Metrics",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "msam_auth_success_total",
+            "legendFormat": "Auth Success",
+            "refId": "A"
+          },
+          {
+            "expr": "msam_auth_failures_total",
+            "legendFormat": "Auth Failures",
+            "refId": "B"
+          },
+          {
+            "expr": "msam_rate_limited_requests_total",
+            "legendFormat": "Rate Limited",
+            "refId": "C"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 14, "w": 12, "h": 6}
+      },
+      {
+        "title": "Concurrent Queries",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "msam_concurrent_queries_current",
+            "legendFormat": "Current",
+            "refId": "A"
+          },
+          {
+            "expr": "msam_concurrent_queries_max",
+            "legendFormat": "Max",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 20, "w": 12, "h": 6}
+      },
+      {
+        "title": "System Uptime",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "msam_uptime_seconds / 86400",
+            "legendFormat": "Days",
+            "refId": "A"
+          }
+        ],
+        "gridPos": {"x": 12, "y": 20, "w": 12, "h": 6}
+      },
+      {
+        "title": "Query Volume",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(msam_queries_total[5m])",
+            "legendFormat": "Queries/min",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(msam_queries_error_total[5m])",
+            "legendFormat": "Errors/min",
+            "refId": "B"
+          }
+        ],
+        "gridPos": {"x": 0, "y": 26, "w": 24, "h": 6}
+      }
+    ],
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "templating": {
+      "list": []
+    }
+  }
+}
